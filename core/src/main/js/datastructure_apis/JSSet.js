@@ -1,28 +1,48 @@
-const mySet1 = new Set()
+//Set object
 
-mySet1.add(1)           // Set [ 1 ]
-mySet1.add(5)           // Set [ 1, 5 ]
-mySet1.add(5)           // Set [ 1, 5 ]
-mySet1.add('some text') // Set [ 1, 5, 'some text' ]
-const o = {a: 1, b: 2}
-mySet1.add(o)
+//constructor API.
+const collections = new Set()
 
-mySet1.add({a: 1, b: 2})   // o is referencing a different object, so this is okay
+//size property
+collections.size         // 0
 
-mySet1.has(1)              // true
-mySet1.has(3)              // false, since 3 has not been added to the set
-mySet1.has(5)              // true
-mySet1.has(Math.sqrt(25))  // true
-mySet1.has('Some Text'.toLowerCase()) // true
-mySet1.has(o)       // true
+//add() API.
 
-mySet1.size         // 5
+collections.add(5);           // Set(1) { 5 }
+collections.add(5) ;          // Set(1) { 5 }
+collections.add('some text'); // Set(2) { 5, 'some text' }
 
-mySet1.delete(5)    // removes 5 from the set
-mySet1.has(5)       // false, 5 has been removed
+//clear API
+collections.clear();
 
-mySet1.size         // 4, since we just removed one value
+//add object to set. comparison is based on object-reference, not on value
+const o = {a: 1, b: 2};
+collections.add(o); //Set(1) { { a: 1, b: 2 } }
+collections.add(o); //Set(1) { { a: 1, b: 2 } }
+console.log(collections);
 
-console.log(mySet1)
+collections.add({a: 1, b: 2});   // Set(2) { { a: 1, b: 2 }, { a: 1, b: 2 } }
+console.log(collections);
+collections.add({a: 1, b: 2});   // o is referencing a different object, so this is okay
+console.log(collections);
+collections.add(o); //Set(4) { 1, 5, 'some text', { a: 1, b: 2 } }
+console.log(collections);
+
+//has() API
+collections.has(1)   ;           // true
+collections.has(3)   ;           // false, since 3 has not been added to the set
+collections.has(5) ;             // true
+collections.has(Math.sqrt(25)) ; // true
+collections.has('Some Text'.toLowerCase()); // true
+collections.has(o)  ;     // true
+
+
+//delete API
+collections.delete(5)    // removes 5 from the set
+collections.has(5)       // false, 5 has been removed
+
+collections.size         // 4, since we just removed one value
+
+console.log(collections)
 // logs Set(4) [ 1, "some text", {…}, {…} ] in Firefox
 // logs Set(4) { 1, "some text", {…}, {…} } in Chrome
